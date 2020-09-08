@@ -1,7 +1,8 @@
 module org.signature {
     requires javafx.controls;
     requires javafx.fxml;
+    requires com.jfoenix;
 
-    opens org.signature to javafx.fxml;
-    exports org.signature;
+    opens org.signature.ui to javafx.fxml;
+    exports org.signature.ui;
 }
