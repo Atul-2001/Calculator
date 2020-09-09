@@ -2,8 +2,9 @@ package org.signature.ui;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
 
 public class HomeController {
 
@@ -12,7 +13,13 @@ public class HomeController {
     @FXML
     private JFXButton clear;
     @FXML
-    private ImageView backspace;
+    private JFXButton backspace;
+    @FXML
+    private JFXHamburger hamburger;
+    @FXML
+    private Label primaryDisplay;
+    @FXML
+    private Label secondaryDisplay;
     @FXML
     private JFXButton seven;
     @FXML
@@ -32,12 +39,523 @@ public class HomeController {
     @FXML
     private JFXButton three;
     @FXML
+    private JFXButton plusMinus;
+    @FXML
     private JFXButton zero;
     @FXML
     private JFXButton decimal;
     @FXML
-    private JFXHamburger hamburger;
+    private JFXButton add;
+    @FXML
+    private JFXButton subtract;
+    @FXML
+    private JFXButton multiply;
+    @FXML
+    private JFXButton divide;
+    @FXML
+    private JFXButton equals;
+
+    private double lastValue;
+    private String lastOperation;
+    private double result;
+    private boolean isResult;
+    private boolean isEquals;
+    private boolean isButtonsDisabled;
 
     public void initialize() {
+
+        Platform.runLater(() -> equals.requestFocus());
+
+        zero.setOnAction(event -> {
+            if (isResult || isEquals) {
+                primaryDisplay.setText("0");
+                if (isEquals) secondaryDisplay.setText("");
+                isResult = false;
+                isEquals = false;
+                if (isButtonsDisabled) {
+                    disableButtons(false);
+                }
+            } else {
+                String value = primaryDisplay.getText();
+                if (value.matches("^0+$")) {
+                    primaryDisplay.setText("0");
+                } else {
+                    primaryDisplay.setText(primaryDisplay.getText() + "0");
+                }
+            }
+        });
+
+        one.setOnAction(event -> {
+            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
+                primaryDisplay.setText("1");
+                if (isEquals) secondaryDisplay.setText("");
+                isResult = false;
+                isEquals = false;
+                if (isButtonsDisabled) {
+                    disableButtons(false);
+                }
+            } else {
+                primaryDisplay.setText(primaryDisplay.getText() + "1");
+            }
+        });
+
+        two.setOnAction(event -> {
+            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
+                primaryDisplay.setText("2");
+                if (isEquals) secondaryDisplay.setText("");
+                isResult = false;
+                isEquals = false;
+                if (isButtonsDisabled) {
+                    disableButtons(false);
+                }
+            } else {
+                primaryDisplay.setText(primaryDisplay.getText() + "2");
+            }
+        });
+
+        three.setOnAction(event -> {
+            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
+                primaryDisplay.setText("3");
+                if (isEquals) secondaryDisplay.setText("");
+                isResult = false;
+                isEquals = false;
+                if (isButtonsDisabled) {
+                    disableButtons(false);
+                }
+            } else {
+                primaryDisplay.setText(primaryDisplay.getText() + "3");
+            }
+        });
+
+        four.setOnAction(event -> {
+            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
+                primaryDisplay.setText("4");
+                if (isEquals) secondaryDisplay.setText("");
+                isResult = false;
+                isEquals = false;
+                if (isButtonsDisabled) {
+                    disableButtons(false);
+                }
+            } else {
+                primaryDisplay.setText(primaryDisplay.getText() + "4");
+            }
+        });
+
+        five.setOnAction(event -> {
+            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
+                primaryDisplay.setText("5");
+                if (isEquals) secondaryDisplay.setText("");
+                isResult = false;
+                isEquals = false;
+                if (isButtonsDisabled) {
+                    disableButtons(false);
+                }
+            } else {
+                primaryDisplay.setText(primaryDisplay.getText() + "5");
+            }
+        });
+
+        six.setOnAction(event -> {
+            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
+                primaryDisplay.setText("6");
+                if (isEquals) secondaryDisplay.setText("");
+                isResult = false;
+                isEquals = false;
+                if (isButtonsDisabled) {
+                    disableButtons(false);
+                }
+            } else {
+                primaryDisplay.setText(primaryDisplay.getText() + "6");
+            }
+        });
+
+        seven.setOnAction(event -> {
+            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
+                primaryDisplay.setText("7");
+                if (isEquals) secondaryDisplay.setText("");
+                isResult = false;
+                isEquals = false;
+                if (isButtonsDisabled) {
+                    disableButtons(false);
+                }
+            } else {
+                primaryDisplay.setText(primaryDisplay.getText() + "7");
+            }
+        });
+
+        eight.setOnAction(event -> {
+            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
+                primaryDisplay.setText("8");
+                if (isEquals) secondaryDisplay.setText("");
+                isResult = false;
+                isEquals = false;
+                if (isButtonsDisabled) {
+                    disableButtons(false);
+                }
+            } else {
+                primaryDisplay.setText(primaryDisplay.getText() + "8");
+            }
+        });
+
+        nine.setOnAction(event -> {
+            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
+                primaryDisplay.setText("9");
+                if (isEquals) secondaryDisplay.setText("");
+                isResult = false;
+                isEquals = false;
+                if (isButtonsDisabled) {
+                    disableButtons(false);
+                }
+            } else {
+                primaryDisplay.setText(primaryDisplay.getText() + "9");
+            }
+        });
+
+        decimal.setOnAction(event -> {
+            if (primaryDisplay.textProperty().isEmpty().get() || isResult || isEquals) {
+                primaryDisplay.setText("0.");
+                if (isEquals) secondaryDisplay.setText("");
+                isResult = false;
+                isEquals = false;
+            } else if (!primaryDisplay.getText().contains(".")) {
+                primaryDisplay.setText(primaryDisplay.getText() + ".");
+            }
+        });
+
+        plusMinus.setOnAction(event -> {
+            if (!primaryDisplay.textProperty().isEmpty().get() && !isResult && !isEquals) {
+                String value = primaryDisplay.getText();
+                String valueBeforeDecimal, valueAfterDecimal;
+
+                if (value.contains(".")) {
+                    int indexOfDecimal= value.lastIndexOf(".");
+                    valueBeforeDecimal = value.substring(0, indexOfDecimal);
+                    if (indexOfDecimal == (value.length() - 1)) {
+                        valueAfterDecimal = "0";
+                    } else {
+                        valueAfterDecimal = value.substring(indexOfDecimal + 1);
+                    }
+                } else {
+                    valueBeforeDecimal = value;
+                    valueAfterDecimal = "0";
+                }
+
+                if (!valueBeforeDecimal.matches("^0+$") || !valueAfterDecimal.matches("^0+$")) {
+                    if (value.contains("-")) {
+                        primaryDisplay.setText(value.replaceAll("-", ""));
+                    } else {
+                        primaryDisplay.setText("-" + value);
+                    }
+                }
+            }
+        });
+
+        backspace.setOnAction(event -> {
+            String value = primaryDisplay.getText();
+            if(!value.isEmpty() && !isResult && !isEquals) {
+                primaryDisplay.setText(value.replaceAll(".$", ""));
+                isResult = false;
+
+                value = primaryDisplay.getText();
+                String valueBeforeDecimal, valueAfterDecimal;
+
+                if (value.contains(".")) {
+                    int indexOfDecimal= value.lastIndexOf(".");
+                    valueBeforeDecimal = value.substring(0, indexOfDecimal);
+                    if (indexOfDecimal == (value.length() - 1)) {
+                        valueAfterDecimal = "0";
+                    } else {
+                        valueAfterDecimal = value.substring(indexOfDecimal + 1);
+                    }
+                } else {
+                    valueBeforeDecimal = value;
+                    valueAfterDecimal = "0";
+                }
+
+                if (valueBeforeDecimal.matches("^0+$") || valueAfterDecimal.matches("^0+$")) {
+                    primaryDisplay.setText(value.replaceAll("-", ""));
+                }
+                if (value.isEmpty()) {
+                    primaryDisplay.setText("0");
+                }
+            }
+        });
+
+        clearAll.setOnAction(event -> {
+            primaryDisplay.setText("0");
+            secondaryDisplay.setText("");
+            result = 0.0;
+            isResult = false;
+            if (isButtonsDisabled) {
+                disableButtons(false);
+                isButtonsDisabled = false;
+            }
+        });
+
+        clear.setOnAction(event -> {
+            if (isResult || isEquals) {
+                secondaryDisplay.setText("");
+            }
+            primaryDisplay.setText("0");
+            result = 0.0;
+            isResult = false;
+            if (isButtonsDisabled) {
+                disableButtons(false);
+                isButtonsDisabled = false;
+            }
+        });
+
+        add.setOnAction(event -> {
+            if (!primaryDisplay.textProperty().isEmpty().get() && !isResult) {
+                String value = getValue();
+
+                if (secondaryDisplay.textProperty().isEmpty().get() || isEquals) {
+                    secondaryDisplay.setText(value + "+");
+                    result = Double.parseDouble(value);
+                    isEquals = false;
+                } else {
+                    secondaryDisplay.setText(secondaryDisplay.getText() + value + "+");
+                    lastValue = Double.parseDouble(value);
+                    calculate();
+                    printResult(String.valueOf(result));
+                }
+                lastOperation = "+";
+                isResult = true;
+            } else if (!secondaryDisplay.getText().isEmpty()) {
+                String currentValue = secondaryDisplay.getText();
+                String modifiedValue = currentValue.replaceAll(".$", "+");
+                secondaryDisplay.setText(modifiedValue);
+                lastOperation = "+";
+            }
+        });
+
+        subtract.setOnAction(event -> {
+            if (!primaryDisplay.textProperty().isEmpty().get() && !isResult) {
+                String value = getValue();
+
+                if (secondaryDisplay.textProperty().isEmpty().get() || isEquals) {
+                    secondaryDisplay.setText(value + "-");
+                    result = Double.parseDouble(value);
+                    isEquals = false;
+                } else {
+                    secondaryDisplay.setText(secondaryDisplay.getText() + value + "-");
+                    lastValue = Double.parseDouble(value);
+                    calculate();
+                    printResult(String.valueOf(result));
+                }
+                lastOperation = "-";
+                isResult = true;
+            } else if (!secondaryDisplay.getText().isEmpty()) {
+                String currentValue = secondaryDisplay.getText();
+                String modifiedValue = currentValue.replaceAll(".$", "-");
+                secondaryDisplay.setText(modifiedValue);
+                lastOperation = "-";
+            }
+        });
+
+        multiply.setOnAction(event -> {
+            if (!primaryDisplay.textProperty().isEmpty().get() && !isResult) {
+                String value = getValue();
+
+                if (secondaryDisplay.textProperty().isEmpty().get() || isEquals) {
+                    secondaryDisplay.setText(value + "*");
+                    result = Double.parseDouble(value);
+                    isEquals = false;
+                } else {
+                    secondaryDisplay.setText(secondaryDisplay.getText() + value + "*");
+                    lastValue = Double.parseDouble(value);
+                    calculate();
+                    printResult(String.valueOf(result));
+                }
+                lastOperation = "*";
+                isResult = true;
+            } else if (!secondaryDisplay.getText().isEmpty()) {
+                String currentValue = secondaryDisplay.getText();
+                String modifiedValue = currentValue.replaceAll(".$", "*");
+                secondaryDisplay.setText(modifiedValue);
+                lastOperation = "*";
+            }
+        });
+
+        divide.setOnAction(event -> {
+            if (!primaryDisplay.textProperty().isEmpty().get() && !isResult) {
+                String value = getValue();
+
+                if (secondaryDisplay.textProperty().isEmpty().get() || isEquals) {
+                    secondaryDisplay.setText(value + "/");
+                    result = Double.parseDouble(value);
+                    lastOperation = "/";
+                    isEquals = false;
+                } else {
+                    lastValue = Double.parseDouble(value);
+                    if (lastValue == 0 || lastValue == 0.0) {
+                        primaryDisplay.setText("Can't divide by zero!");
+                        lastValue = result;
+                        disableButtons(true);
+                    } else {
+                        secondaryDisplay.setText(secondaryDisplay.getText() + value + "/");
+                        calculate();
+                        printResult(String.valueOf(result));
+                        lastOperation = "/";
+                    }
+                }
+                isResult = true;
+            } else if (!secondaryDisplay.getText().isEmpty()) {
+                String currentValue = secondaryDisplay.getText();
+                String modifiedValue = currentValue.replaceAll(".$", "/");
+                secondaryDisplay.setText(modifiedValue);
+                lastOperation = "/";
+            }
+        });
+
+        equals.setOnAction(event -> {
+            if (isButtonsDisabled) {
+                clearAll.arm();
+                clearAll.fire();
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ignored) {
+                    clearAll.disarm();
+                }
+                clearAll.disarm();
+            } else if (!primaryDisplay.textProperty().isEmpty().get() && !isResult) {
+                String value = getValue();
+
+                if (!secondaryDisplay.textProperty().isEmpty().get() && !isResult && !isEquals) {
+                    secondaryDisplay.setText(secondaryDisplay.getText() + value + "=");
+                    lastValue = Double.parseDouble(value);
+                    calculate();
+                    printResult(String.valueOf(result));
+                    isResult = false;
+                    isEquals = true;
+                } else if (isEquals && !isResult) {
+                    String resultStr = String.valueOf(result);
+                    if (resultStr.contains(".")) {
+                        int indexOfDecimal= resultStr.lastIndexOf(".");
+                        String valueBeforeDecimal = resultStr.substring(0, indexOfDecimal);
+                        String valueAfterDecimal = resultStr.substring(indexOfDecimal + 1);
+
+                        if (valueAfterDecimal.matches("^0+$")) {
+                            resultStr = valueBeforeDecimal;
+                        }
+                    }
+
+                    String lastValueStr = String.valueOf(lastValue);
+                    if (lastValueStr.contains(".")) {
+                        int indexOfDecimal= lastValueStr.lastIndexOf(".");
+                        String valueBeforeDecimal = lastValueStr.substring(0, indexOfDecimal);
+                        String valueAfterDecimal = lastValueStr.substring(indexOfDecimal + 1);
+
+                        if (valueAfterDecimal.matches("^0+$")) {
+                            lastValueStr = valueBeforeDecimal;
+                        }
+                    }
+                    secondaryDisplay.setText(resultStr + lastOperation + lastValueStr + "=");
+                    calculate();
+                    printResult(String.valueOf(result));
+                    isResult = false;
+                    isEquals = true;
+                }
+            } else {
+                String value = getValue();
+                secondaryDisplay.setText(secondaryDisplay.getText() + value + "=");
+                lastValue = result;
+                calculate();
+                printResult(String.valueOf(result));
+                isResult = false;
+                isEquals = true;
+            }
+        });
+    }
+
+    private String getValue() {
+        String value = primaryDisplay.getText();
+        if(value.matches("^0+$")) {
+            value = "0";
+        } else if (value.contains(".")) {
+            int indexOfDecimal= value.lastIndexOf(".");
+            String valueBeforeDecimal = value.substring(0, indexOfDecimal);
+            String valueAfterDecimal;
+            if (indexOfDecimal == (value.length() - 1)) {
+                valueAfterDecimal = "0";
+            } else {
+                valueAfterDecimal = value.substring(indexOfDecimal + 1);
+            }
+            if (valueBeforeDecimal.matches("^0+$") && valueAfterDecimal.matches("^0+$")) {
+                value = "0.0";
+            }
+        }
+
+        if (value.contains(".")) {
+            int indexOfDecimal= value.lastIndexOf(".");
+            String valueBeforeDecimal = value.substring(0, indexOfDecimal);
+            String valueAfterDecimal;
+            if (indexOfDecimal == (value.length() - 1)) {
+                valueAfterDecimal = "0";
+            } else {
+                valueAfterDecimal = value.substring(indexOfDecimal + 1);
+            }
+
+            if (valueAfterDecimal.matches("^0+$")) {
+                value = valueBeforeDecimal;
+            }
+        }
+
+        if (value.contains("NaN") || value.contains("Infinity") || value.contains("INFINITY") || value.contains("Can't divide by zero!")) {
+            value = "0";
+        }
+
+        return value;
+    }
+
+    private void calculate() {
+        switch (lastOperation) {
+            case "+":
+                result = result + lastValue;
+                break;
+            case "-":
+                result = result - lastValue;
+                break;
+            case "*":
+                result = result * lastValue;
+                break;
+            case "/":
+                result = result / lastValue;
+        }
+    }
+
+    private void printResult(String resultStr) {
+        if (resultStr.contains(".")) {
+            int indexOfDecimal= resultStr.lastIndexOf(".");
+            String valueBeforeDecimal = resultStr.substring(0, indexOfDecimal);
+            String valueAfterDecimal = resultStr.substring(indexOfDecimal + 1);
+
+            if (valueAfterDecimal.matches("^0+$")) {
+                primaryDisplay.setText(valueBeforeDecimal);
+            } else {
+                primaryDisplay.setText(resultStr);
+            }
+        } else {
+            if (resultStr.contains("NaN") || resultStr.contains("Infinity") || resultStr.contains("INFINITY")) {
+                primaryDisplay.setText("Can't divide by zero!");
+                disableButtons(true);
+            } else {
+                primaryDisplay.setText(resultStr);
+            }
+        }
+    }
+
+    private void disableButtons(boolean status) {
+        plusMinus.setDisable(status);
+        decimal.setDisable(status);
+        add.setDisable(status);
+        subtract.setDisable(status);
+        multiply.setDisable(status);
+        divide.setDisable(status);
+        isButtonsDisabled = status;
+    }
+
+    private void bindKeys() {
+
     }
 }
