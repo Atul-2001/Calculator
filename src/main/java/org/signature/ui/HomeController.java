@@ -98,9 +98,12 @@ public class HomeController {
                 }
 
                 if (isAdvMathOp) {
-                    String currentValue = secondaryDisplay.getText();
-                    String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
-                    secondaryDisplay.setText(modifiedValue);
+                    try {
+                        String currentValue = secondaryDisplay.getText();
+                        String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
+                        secondaryDisplay.setText(modifiedValue);
+                    } catch (Exception ignored) {}
+                    isAdvMathOp = false;
                 }
             } else {
                 String value = primaryDisplay.getText();
@@ -112,203 +115,15 @@ public class HomeController {
             }
         });
 
-        one.setOnAction(event -> {
-            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
-                primaryDisplay.setText("1");
-                if (isEquals) secondaryDisplay.setText("");
-
-                if (isButtonsDisabled) {
-                    disableButtons(false);
-                }
-
-                if (isAdvMathOp && (isResult || isEquals)) {
-                    String currentValue = secondaryDisplay.getText();
-                    String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
-                    secondaryDisplay.setText(modifiedValue);
-                }
-
-                isResult = false;
-                isEquals = false;
-            } else {
-                primaryDisplay.setText(primaryDisplay.getText() + "1");
-            }
-        });
-
-        two.setOnAction(event -> {
-            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
-                primaryDisplay.setText("2");
-                if (isEquals) secondaryDisplay.setText("");
-
-                if (isButtonsDisabled) {
-                    disableButtons(false);
-                }
-
-                if (isAdvMathOp && (isResult || isEquals)) {
-                    String currentValue = secondaryDisplay.getText();
-                    String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
-                    secondaryDisplay.setText(modifiedValue);
-                }
-
-                isResult = false;
-                isEquals = false;
-            } else {
-                primaryDisplay.setText(primaryDisplay.getText() + "2");
-            }
-        });
-
-        three.setOnAction(event -> {
-            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
-                primaryDisplay.setText("3");
-                if (isEquals) secondaryDisplay.setText("");
-
-                if (isButtonsDisabled) {
-                    disableButtons(false);
-                }
-
-                if (isAdvMathOp && (isResult || isEquals)) {
-                    String currentValue = secondaryDisplay.getText();
-                    String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
-                    secondaryDisplay.setText(modifiedValue);
-                }
-
-                isResult = false;
-                isEquals = false;
-            } else {
-                primaryDisplay.setText(primaryDisplay.getText() + "3");
-            }
-        });
-
-        four.setOnAction(event -> {
-            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
-                primaryDisplay.setText("4");
-                if (isEquals) secondaryDisplay.setText("");
-
-                if (isButtonsDisabled) {
-                    disableButtons(false);
-                }
-
-                if (isAdvMathOp && (isResult || isEquals)) {
-                    String currentValue = secondaryDisplay.getText();
-                    String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
-                    secondaryDisplay.setText(modifiedValue);
-                }
-
-                isResult = false;
-                isEquals = false;
-            } else {
-                primaryDisplay.setText(primaryDisplay.getText() + "4");
-            }
-        });
-
-        five.setOnAction(event -> {
-            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
-                primaryDisplay.setText("5");
-                if (isEquals) secondaryDisplay.setText("");
-
-                if (isButtonsDisabled) {
-                    disableButtons(false);
-                }
-
-                if (isAdvMathOp && (isResult || isEquals)) {
-                    String currentValue = secondaryDisplay.getText();
-                    String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
-                    secondaryDisplay.setText(modifiedValue);
-                }
-
-                isResult = false;
-                isEquals = false;
-            } else {
-                primaryDisplay.setText(primaryDisplay.getText() + "5");
-            }
-        });
-
-        six.setOnAction(event -> {
-            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
-                primaryDisplay.setText("6");
-                if (isEquals) secondaryDisplay.setText("");
-
-                if (isButtonsDisabled) {
-                    disableButtons(false);
-                }
-
-                if (isAdvMathOp && (isResult || isEquals)) {
-                    String currentValue = secondaryDisplay.getText();
-                    String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
-                    secondaryDisplay.setText(modifiedValue);
-                }
-
-                isResult = false;
-                isEquals = false;
-            } else {
-                primaryDisplay.setText(primaryDisplay.getText() + "6");
-            }
-        });
-
-        seven.setOnAction(event -> {
-            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
-                primaryDisplay.setText("7");
-                if (isEquals) secondaryDisplay.setText("");
-
-                if (isButtonsDisabled) {
-                    disableButtons(false);
-                }
-
-                if (isAdvMathOp && (isResult || isEquals)) {
-                    String currentValue = secondaryDisplay.getText();
-                    String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
-                    secondaryDisplay.setText(modifiedValue);
-                }
-
-                isResult = false;
-                isEquals = false;
-            } else {
-                primaryDisplay.setText(primaryDisplay.getText() + "7");
-            }
-        });
-
-        eight.setOnAction(event -> {
-            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
-                primaryDisplay.setText("8");
-                if (isEquals) secondaryDisplay.setText("");
-
-                if (isButtonsDisabled) {
-                    disableButtons(false);
-                }
-
-                if (isAdvMathOp && (isResult || isEquals)) {
-                    String currentValue = secondaryDisplay.getText();
-                    String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
-                    secondaryDisplay.setText(modifiedValue);
-                }
-
-                isResult = false;
-                isEquals = false;
-            } else {
-                primaryDisplay.setText(primaryDisplay.getText() + "8");
-            }
-        });
-
-        nine.setOnAction(event -> {
-            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
-                primaryDisplay.setText("9");
-                if (isEquals) secondaryDisplay.setText("");
-
-                if (isButtonsDisabled) {
-                    disableButtons(false);
-                }
-
-                if (isAdvMathOp && (isResult || isEquals)) {
-                    String currentValue = secondaryDisplay.getText();
-                    String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
-                    secondaryDisplay.setText(modifiedValue);
-                }
-
-                isResult = false;
-                isEquals = false;
-            } else {
-                primaryDisplay.setText(primaryDisplay.getText() + "9");
-            }
-        });
+        one.setOnAction(event -> printDigit(1));
+        two.setOnAction(event -> printDigit(2));
+        three.setOnAction(event -> printDigit(3));
+        four.setOnAction(event -> printDigit(4));
+        five.setOnAction(event -> printDigit(5));
+        six.setOnAction(event -> printDigit(6));
+        seven.setOnAction(event -> printDigit(7));
+        eight.setOnAction(event -> printDigit(8));
+        nine.setOnAction(event -> printDigit(9));
 
         decimal.setOnAction(event -> {
             if (primaryDisplay.textProperty().isEmpty().get() || isResult || isEquals) {
@@ -316,9 +131,12 @@ public class HomeController {
                 if (isEquals) secondaryDisplay.setText("");
 
                 if (isAdvMathOp && (isResult || isEquals)) {
-                    String currentValue = secondaryDisplay.getText();
-                    String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
-                    secondaryDisplay.setText(modifiedValue);
+                    try {
+                        String currentValue = secondaryDisplay.getText();
+                        String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
+                        secondaryDisplay.setText(modifiedValue);
+                    } catch (Exception ignored) {}
+                    isAdvMathOp = false;
                 }
 
                 isResult = false;
@@ -392,6 +210,9 @@ public class HomeController {
             secondaryDisplay.setText("");
             result = 0.0;
             isResult = false;
+            isEquals = false;
+            isAdvMathOp = false;
+            advMathOpResult = 0.0;
             if (isButtonsDisabled) {
                 disableButtons(false);
                 isButtonsDisabled = false;
@@ -405,170 +226,31 @@ public class HomeController {
             primaryDisplay.setText("0");
             result = 0.0;
             isResult = false;
+            isEquals = false;
+            isAdvMathOp = false;
+            advMathOpResult = 0.0;
             if (isButtonsDisabled) {
                 disableButtons(false);
                 isButtonsDisabled = false;
             }
         });
 
-        add.setOnAction(event -> {
-            if (!primaryDisplay.textProperty().isEmpty().get() && !isResult) {
-                String value = getValue();
-
-                if (secondaryDisplay.textProperty().isEmpty().get() || isEquals) {
-                    secondaryDisplay.setText(value + "+");
-                    result = Double.parseDouble(value);
-                } else {
-                    secondaryDisplay.setText(secondaryDisplay.getText() + value + "+");
-                    lastValue = Double.parseDouble(value);
-                    calculate();
-                    printResult(String.valueOf(result));
-                }
-                lastOperation = "+";
-                isResult = true;
-            } else if (!secondaryDisplay.getText().isEmpty()) {
-                String currentValue = secondaryDisplay.getText();
-                String modifiedValue = currentValue.replaceAll("[\\-|*|/]$", "+").replaceAll("\\)$", ")+");
-                secondaryDisplay.setText(modifiedValue);
-                if (isAdvMathOp) {
-                    lastValue = advMathOpResult;
-                    calculate();
-                    printResult(String.valueOf(result));
-                }
-                lastOperation = "+";
-            }
-            isEquals = false;
-        });
-
-        subtract.setOnAction(event -> {
-            if (!primaryDisplay.textProperty().isEmpty().get() && !isResult) {
-                String value = getValue();
-
-                if (secondaryDisplay.textProperty().isEmpty().get() || isEquals) {
-                    secondaryDisplay.setText(value + "-");
-                    result = Double.parseDouble(value);
-                } else {
-                    secondaryDisplay.setText(secondaryDisplay.getText() + value + "-");
-                    lastValue = Double.parseDouble(value);
-                    calculate();
-                    printResult(String.valueOf(result));
-                }
-                lastOperation = "-";
-                isResult = true;
-            } else if (!secondaryDisplay.getText().isEmpty()) {
-                String currentValue = secondaryDisplay.getText();
-                String modifiedValue = currentValue.replaceAll("[+|*|/]$", "-").replaceAll("\\)$", ")-");
-                secondaryDisplay.setText(modifiedValue);
-                if (isAdvMathOp) {
-                    lastValue = advMathOpResult;
-                    calculate();
-                    printResult(String.valueOf(result));
-                }
-                lastOperation = "-";
-            }
-            isEquals = false;
-        });
-
-        multiply.setOnAction(event -> {
-            if (!primaryDisplay.textProperty().isEmpty().get() && !isResult) {
-                String value = getValue();
-
-                if (secondaryDisplay.textProperty().isEmpty().get() || isEquals) {
-                    secondaryDisplay.setText(value + "*");
-                    result = Double.parseDouble(value);
-                } else {
-                    secondaryDisplay.setText(secondaryDisplay.getText() + value + "*");
-                    lastValue = Double.parseDouble(value);
-                    calculate();
-                    printResult(String.valueOf(result));
-                }
-                lastOperation = "*";
-                isResult = true;
-            } else if (!secondaryDisplay.getText().isEmpty()) {
-                String currentValue = secondaryDisplay.getText();
-                String modifiedValue = currentValue.replaceAll("[+|\\-|/]$", "*").replaceAll("\\)$", ")*");
-                secondaryDisplay.setText(modifiedValue);
-                if (isAdvMathOp) {
-                    lastValue = advMathOpResult;
-                    calculate();
-                    printResult(String.valueOf(result));
-                }
-                lastOperation = "*";
-            }
-            isEquals = false;
-        });
-
-        divide.setOnAction(event -> {
-            if (!primaryDisplay.textProperty().isEmpty().get() && !isResult) {
-                String value = getValue();
-
-                if (secondaryDisplay.textProperty().isEmpty().get() || isEquals) {
-                    secondaryDisplay.setText(value + "/");
-                    result = Double.parseDouble(value);
-                    lastOperation = "/";
-                } else {
-                    lastValue = Double.parseDouble(value);
-                    if (lastValue == 0 || lastValue == 0.0) {
-                        primaryDisplay.setText("Can't divide by zero!");
-                        lastValue = result;
-                        disableButtons(true);
-                    } else {
-                        secondaryDisplay.setText(secondaryDisplay.getText() + value + "/");
-                        calculate();
-                        printResult(String.valueOf(result));
-                        lastOperation = "/";
-                    }
-                }
-                isResult = true;
-            } else if (!secondaryDisplay.getText().isEmpty()) {
-                String currentValue = secondaryDisplay.getText();
-                String modifiedValue = currentValue.replaceAll("[+|\\-|*]$", "/").replaceAll("\\)$", ")/");
-                secondaryDisplay.setText(modifiedValue);
-                if (isAdvMathOp) {
-                    lastValue = advMathOpResult;
-                    calculate();
-                    printResult(String.valueOf(result));
-                }
-                lastOperation = "/";
-            }
-            isEquals = false;
-        });
+        add.setOnAction(event -> performOperation(Operator.ADD));
+        subtract.setOnAction(event -> performOperation(Operator.SUBTRACT));
+        multiply.setOnAction(event -> performOperation(Operator.MULTIPLY));
+        divide.setOnAction(event -> performOperation(Operator.DIVIDE));
 
         modulus.setOnAction(event -> {
             if (!primaryDisplay.textProperty().isEmpty().get() && !isResult) {
-                
+
             } else {
 
             }
         });
 
-        oneX.setOnAction(event -> {
-            if (!primaryDisplay.textProperty().isEmpty().get() && !isResult) {
-                String value = getValue();
-
-                if (secondaryDisplay.textProperty().isEmpty().get() || isEquals) {
-                    secondaryDisplay.setText("1/(" + value + ")");
-                    result = 1;
-                    lastValue = Double.parseDouble(value);
-                    lastOperation = "/";
-                    calculate();
-                    printResult(String.valueOf(result));
-                    isEquals = true;
-                } else {
-                    secondaryDisplay.setText(secondaryDisplay.getText() + "1/(" + value + ")");
-                    advMathOpResult = 1/Double.parseDouble(value);
-                    isAdvMathOp = true;
-                    printResult(String.valueOf(advMathOpResult));
-                }
-                isResult = true;
-            } else if (!primaryDisplay.textProperty().isEmpty().get()) {
-                String value = primaryDisplay.getText();
-                secondaryDisplay.setText(secondaryDisplay.getText() + "1/(" + value + ")");
-                advMathOpResult = 1/Double.parseDouble(value);
-                isAdvMathOp = true;
-                printResult(String.valueOf(advMathOpResult));
-            }
-        });
+        oneX.setOnAction(event -> performAdvOperation(Operator.ONE_BY_X));
+        xSquare.setOnAction(event -> performAdvOperation(Operator.X_SQUARE));
+        squareRoot.setOnAction(event -> performAdvOperation(Operator.SQUARE_ROOT));
 
         equals.setOnAction(event -> {
             if (isButtonsDisabled) {
@@ -637,6 +319,31 @@ public class HomeController {
         bindKeys();
     }
 
+    private void printDigit(int digit) {
+        if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
+            primaryDisplay.setText(String.valueOf(digit));
+            if (isEquals) secondaryDisplay.setText("");
+
+            if (isButtonsDisabled) {
+                disableButtons(false);
+            }
+
+            if (isAdvMathOp && (isResult || isEquals)) {
+                try {
+                    String currentValue = secondaryDisplay.getText();
+                    String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
+                    secondaryDisplay.setText(modifiedValue);
+                } catch (Exception ignored) {}
+                isAdvMathOp = false;
+            }
+
+            isResult = false;
+            isEquals = false;
+        } else {
+            primaryDisplay.setText(primaryDisplay.getText() + digit);
+        }
+    }
+
     private String getValue() {
         String value = primaryDisplay.getText();
         if(value.matches("^0+$")) {
@@ -677,19 +384,145 @@ public class HomeController {
         return value;
     }
 
+    private void performOperation(Operator operator) {
+        if (!primaryDisplay.textProperty().isEmpty().get() && !isResult) {
+            String value = getValue();
+
+            if (operator.equals(Operator.DIVIDE)) {
+                if (secondaryDisplay.textProperty().isEmpty().get() || isEquals) {
+                    secondaryDisplay.setText(value + operator);
+                    result = Double.parseDouble(value);
+                    lastOperation = operator.toString();
+                } else {
+                    lastValue = Double.parseDouble(value);
+                    if (lastValue == 0 || lastValue == 0.0) {
+                        primaryDisplay.setText("Can't divide by zero!");
+                        lastValue = result;
+                        disableButtons(true);
+                    } else {
+                        secondaryDisplay.setText(secondaryDisplay.getText() + value + operator);
+                        calculate();
+                        printResult(String.valueOf(result));
+                        lastOperation = operator.toString();
+                    }
+                }
+            } else {
+                if (secondaryDisplay.textProperty().isEmpty().get() || isEquals) {
+                    secondaryDisplay.setText(value + operator);
+                    result = Double.parseDouble(value);
+                } else {
+                    secondaryDisplay.setText(secondaryDisplay.getText() + value + operator);
+                    lastValue = Double.parseDouble(value);
+                    calculate();
+                    printResult(String.valueOf(result));
+                }
+                lastOperation = operator.toString();
+            }
+            isResult = true;
+        } else if (!secondaryDisplay.getText().isEmpty()) {
+            String currentValue = secondaryDisplay.getText();
+
+            String modifiedValue = "";
+            if (operator.equals(Operator.ADD)) {
+                modifiedValue = currentValue.replaceAll("[\u2212|\u00D7|\u00F7]$", "\u002B").replaceAll("\\)$", ")\u002B");
+            } else if (operator.equals(Operator.SUBTRACT)) {
+                modifiedValue = currentValue.replaceAll("[\u002B|\u00D7|\u00F7]$", "\u2212").replaceAll("\\)$", ")\u2212");
+            } else if (operator.equals(Operator.MULTIPLY)) {
+                modifiedValue = currentValue.replaceAll("[\u002B|\u2212|\u00F7]$", "\u00D7").replaceAll("\\)$", ")\u00D7");
+            } else if (operator.equals(Operator.DIVIDE)) {
+                modifiedValue = currentValue.replaceAll("[\u002B|\u2212|\u00D7]$", "\u00F7").replaceAll("\\)$", ")\u00F7");
+            }
+
+            secondaryDisplay.setText(modifiedValue);
+            if (isAdvMathOp) {
+                if (lastOperation.isEmpty()) {
+                    result = advMathOpResult;
+                } else {
+                    lastValue = advMathOpResult;
+                }
+                calculate();
+                printResult(String.valueOf(result));
+                isAdvMathOp = false;
+            }
+            lastOperation = operator.toString();
+        }
+        isEquals = false;
+    }
+
     private void calculate() {
-        switch (lastOperation) {
-            case "+":
-                result = result + lastValue;
-                break;
-            case "-":
-                result = result - lastValue;
-                break;
-            case "*":
-                result = result * lastValue;
-                break;
-            case "/":
-                result = result / lastValue;
+        if (lastOperation != null) {
+            switch (lastOperation) {
+                case "\u002B":
+                    result = result + lastValue;
+                    break;
+                case "\u2212":
+                    result = result - lastValue;
+                    break;
+                case "\u00D7":
+                    result = result * lastValue;
+                    break;
+                case "\u00F7":
+                    result = result / lastValue;
+            }
+        }
+    }
+
+    private void performAdvOperation(Operator operator) {
+        if (!primaryDisplay.textProperty().isEmpty().get() && !isResult) {
+            String value = getValue();
+
+            if (secondaryDisplay.textProperty().isEmpty().get() || isEquals) {
+                secondaryDisplay.setText(operator + "(" + value + ")");
+                
+                if (operator.equals(Operator.ONE_BY_X)) {
+                    result = 1/Double.parseDouble(value);
+                } else if (operator.equals(Operator.X_SQUARE)) {
+                    result = Math.pow(Double.parseDouble(value), 2);
+                } else if (operator.equals(Operator.SQUARE_ROOT)) {
+                    result = Math.sqrt(Double.parseDouble(value));
+                }
+                
+                lastOperation = "";
+                printResult(String.valueOf(result));
+                isEquals = true;
+            } else {
+                secondaryDisplay.setText(secondaryDisplay.getText() + operator +  "(" + value + ")");
+                if (operator.equals(Operator.ONE_BY_X)) {
+                    advMathOpResult = 1/Double.parseDouble(value);
+                } else if (operator.equals(Operator.X_SQUARE)) {
+                    advMathOpResult = Math.pow(Double.parseDouble(value), 2);
+                } else if (operator.equals(Operator.SQUARE_ROOT)) {
+                    advMathOpResult = Math.sqrt(Double.parseDouble(value));
+                }
+                isAdvMathOp = true;
+                printResult(String.valueOf(advMathOpResult));
+            }
+            isResult = true;
+        } else if (!primaryDisplay.textProperty().isEmpty().get()) {
+            String value = primaryDisplay.getText();
+            if(isEquals) {
+                String currentValue = secondaryDisplay.getText();
+                String formattedValue = operator + "(" + currentValue + ")";
+                secondaryDisplay.setText(formattedValue);
+            } else if (isAdvMathOp) {
+                String currentValue = secondaryDisplay.getText();
+                int indexOfLastAdvMathOp = currentValue.lastIndexOf(lastOperation);
+                String beforeAdvMathOp = currentValue.substring(0, indexOfLastAdvMathOp + 1);
+                String lastAdvMathOp = currentValue.substring(indexOfLastAdvMathOp + 1);
+                String formattedValue = beforeAdvMathOp + operator + "(" + lastAdvMathOp + ")";
+                secondaryDisplay.setText(formattedValue);
+            } else {
+                secondaryDisplay.setText(secondaryDisplay.getText() + operator + "(" + value + ")");
+            }
+            if (operator.equals(Operator.ONE_BY_X)) {
+                advMathOpResult = 1/Double.parseDouble(value);
+            } else if (operator.equals(Operator.X_SQUARE)) {
+                advMathOpResult = Math.pow(Double.parseDouble(value), 2);
+            } else if (operator.equals(Operator.SQUARE_ROOT)) {
+                advMathOpResult = Math.sqrt(Double.parseDouble(value));
+            }
+            isAdvMathOp = true;
+            printResult(String.valueOf(advMathOpResult));
         }
     }
 
