@@ -68,49 +68,50 @@ public class HomeController {
     private JFXButton equals;
 
     private double lastValue;
-    private String lastOperation;
+    private String lastOperation = "";
     private double result;
     private boolean isResult;
     private boolean isEquals;
     private boolean isButtonsDisabled;
     private double advMathOpResult;
     private boolean isAdvMathOp;
+    private boolean isModulus;
 
     public void initialize() {
-
         Platform.runLater(() -> equals.requestFocus());
-
-        base.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!oldValue) {
-                base.requestFocus();
+        equals.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                equals.requestFocus();
             }
         });
 
         zero.setOnAction(event -> {
-            if (isResult || isEquals) {
-                primaryDisplay.setText("0");
-                if (isEquals) secondaryDisplay.setText("");
-                isResult = false;
-                isEquals = false;
-
-                if (isButtonsDisabled) {
-                    disableButtons(false);
-                }
-
-                if (isAdvMathOp) {
-                    try {
-                        String currentValue = secondaryDisplay.getText();
-                        String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
-                        secondaryDisplay.setText(modifiedValue);
-                    } catch (Exception ignored) {}
-                    isAdvMathOp = false;
-                }
-            } else {
-                String value = primaryDisplay.getText();
-                if (value.matches("^0+$")) {
+            String value = primaryDisplay.getText();
+            if (value.length() < 16 || ((value.contains("-") || value.contains(".")) && value.replaceAll("[\\-|\\.]", "").length() <= 16)) {
+                if (isResult || isEquals) {
                     primaryDisplay.setText("0");
+                    if (isEquals) secondaryDisplay.setText("");
+                    isResult = false;
+                    isEquals = false;
+
+                    if (isButtonsDisabled) {
+                        disableButtons(false);
+                    }
+
+                    if (isAdvMathOp) {
+                        try {
+                            String currentValue = secondaryDisplay.getText();
+                            String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
+                            secondaryDisplay.setText(modifiedValue);
+                        } catch (Exception ignored) {}
+                        isAdvMathOp = false;
+                    }
                 } else {
-                    primaryDisplay.setText(primaryDisplay.getText() + "0");
+                    if (value.matches("^0+$")) {
+                        primaryDisplay.setText("0");
+                    } else {
+                        primaryDisplay.setText(value + "0");
+                    }
                 }
             }
         });
@@ -213,6 +214,7 @@ public class HomeController {
             isEquals = false;
             isAdvMathOp = false;
             advMathOpResult = 0.0;
+            isModulus = false;
             if (isButtonsDisabled) {
                 disableButtons(false);
                 isButtonsDisabled = false;
@@ -229,6 +231,7 @@ public class HomeController {
             isEquals = false;
             isAdvMathOp = false;
             advMathOpResult = 0.0;
+            isModulus = false;
             if (isButtonsDisabled) {
                 disableButtons(false);
                 isButtonsDisabled = false;
@@ -241,10 +244,86 @@ public class HomeController {
         divide.setOnAction(event -> performOperation(Operator.DIVIDE));
 
         modulus.setOnAction(event -> {
-            if (!primaryDisplay.textProperty().isEmpty().get() && !isResult) {
+            if (!primaryDisplay.textProperty().isEmpty().get() && (!isResult || isEquals)) {
+                String value = getValue();
 
-            } else {
+                if (secondaryDisplay.textProperty().isEmpty().get() || isEquals) {
+                    if (lastOperation.isEmpty()) result = 0.0;
+                    result = calculatePercentage(Double.parseDouble(value));
+                    String resultStr = String.valueOf(result);
+                    if (resultStr.contains(".")) {
+                        int indexOfDecimal= resultStr.lastIndexOf(".");
+                        String valueBeforeDecimal = resultStr.substring(0, indexOfDecimal);
+                        String valueAfterDecimal = resultStr.substring(indexOfDecimal + 1);
 
+                        if (valueAfterDecimal.matches("^0+$")) {
+                            secondaryDisplay.setText(valueBeforeDecimal);
+                        } else {
+                            secondaryDisplay.setText(resultStr);
+                        }
+                    }
+                    lastOperation = "";
+                    printResult(String.valueOf(result));
+                    isEquals = true;
+                } else {
+                    advMathOpResult = calculatePercentage(Double.parseDouble(value));
+
+                    if (isAdvMathOp) {
+                        String currentValue = secondaryDisplay.getText();
+                        int indexOfLastAdvMathOp = currentValue.lastIndexOf(lastOperation);
+                        String beforeAdvMathOp = currentValue.substring(0, indexOfLastAdvMathOp + 1);
+
+                        String resultStr = String.valueOf(advMathOpResult);
+                        if (resultStr.contains(".")) {
+                            int indexOfDecimal= resultStr.lastIndexOf(".");
+                            String valueBeforeDecimal = resultStr.substring(0, indexOfDecimal);
+                            String valueAfterDecimal = resultStr.substring(indexOfDecimal + 1);
+
+                            String formattedValue;
+                            if (valueAfterDecimal.matches("^0+$")) {
+                                formattedValue = beforeAdvMathOp + valueBeforeDecimal;
+                            } else {
+                                formattedValue = beforeAdvMathOp + resultStr;
+                            }
+                            secondaryDisplay.setText(formattedValue);
+                        }
+                    } else {
+                        String resultStr = String.valueOf(advMathOpResult);
+                        if (resultStr.contains(".")) {
+                            int indexOfDecimal= resultStr.lastIndexOf(".");
+                            String valueBeforeDecimal = resultStr.substring(0, indexOfDecimal);
+                            String valueAfterDecimal = resultStr.substring(indexOfDecimal + 1);
+
+                            if (valueAfterDecimal.matches("^0+$")) {
+                                secondaryDisplay.setText(secondaryDisplay.getText() + valueBeforeDecimal);
+                            } else {
+                                secondaryDisplay.setText(secondaryDisplay.getText() + resultStr);
+                            }
+                        }
+                    }
+
+                    isAdvMathOp = true;
+                    printResult(String.valueOf(advMathOpResult));
+                }
+                isResult = true;
+                isModulus = true;
+            } else if (!primaryDisplay.textProperty().isEmpty().get()){
+                String value = primaryDisplay.getText();
+                advMathOpResult = calculatePercentage(Double.parseDouble(value));
+
+                if (isAdvMathOp) {
+                    String currentValue = secondaryDisplay.getText();
+                    int indexOfLastAdvMathOp = currentValue.lastIndexOf(lastOperation);
+                    String beforeAdvMathOp = currentValue.substring(0, indexOfLastAdvMathOp + 1);
+                    String formattedValue = beforeAdvMathOp + advMathOpResult;
+                    secondaryDisplay.setText(formattedValue);
+                } else {
+                    secondaryDisplay.setText(secondaryDisplay.getText() + advMathOpResult);
+                }
+
+                isAdvMathOp = true;
+                printResult(String.valueOf(advMathOpResult));
+                isModulus = true;
             }
         });
 
@@ -320,27 +399,30 @@ public class HomeController {
     }
 
     private void printDigit(int digit) {
-        if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
-            primaryDisplay.setText(String.valueOf(digit));
-            if (isEquals) secondaryDisplay.setText("");
+        String value = primaryDisplay.getText();
+        if (value.length() < 16 || ((value.contains("-") || value.contains(".")) && value.replaceAll("[\\-|\\.]", "").length() <= 16)) {
+            if (primaryDisplay.getText().matches("^0+$") || isResult || isEquals) {
+                primaryDisplay.setText(String.valueOf(digit));
+                if (isEquals) secondaryDisplay.setText("");
 
-            if (isButtonsDisabled) {
-                disableButtons(false);
+                if (isButtonsDisabled) {
+                    disableButtons(false);
+                }
+
+                if (isAdvMathOp && (isResult || isEquals)) {
+                    try {
+                        String currentValue = secondaryDisplay.getText();
+                        String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
+                        secondaryDisplay.setText(modifiedValue);
+                    } catch (Exception ignored) {}
+                    isAdvMathOp = false;
+                }
+
+                isResult = false;
+                isEquals = false;
+            } else {
+                primaryDisplay.setText(value + digit);
             }
-
-            if (isAdvMathOp && (isResult || isEquals)) {
-                try {
-                    String currentValue = secondaryDisplay.getText();
-                    String modifiedValue = currentValue.substring(0, currentValue.lastIndexOf(lastOperation)+1);
-                    secondaryDisplay.setText(modifiedValue);
-                } catch (Exception ignored) {}
-                isAdvMathOp = false;
-            }
-
-            isResult = false;
-            isEquals = false;
-        } else {
-            primaryDisplay.setText(primaryDisplay.getText() + digit);
         }
     }
 
@@ -425,12 +507,28 @@ public class HomeController {
             String modifiedValue = "";
             if (operator.equals(Operator.ADD)) {
                 modifiedValue = currentValue.replaceAll("[\u2212|\u00D7|\u00F7]$", "\u002B").replaceAll("\\)$", ")\u002B");
+                if (isModulus) {
+                    modifiedValue = modifiedValue + "\u002B";
+                    isModulus = false;
+                }
             } else if (operator.equals(Operator.SUBTRACT)) {
                 modifiedValue = currentValue.replaceAll("[\u002B|\u00D7|\u00F7]$", "\u2212").replaceAll("\\)$", ")\u2212");
+                if (isModulus) {
+                    modifiedValue = modifiedValue + "\u2212";
+                    isModulus = false;
+                }
             } else if (operator.equals(Operator.MULTIPLY)) {
                 modifiedValue = currentValue.replaceAll("[\u002B|\u2212|\u00F7]$", "\u00D7").replaceAll("\\)$", ")\u00D7");
+                if (isModulus) {
+                    modifiedValue = modifiedValue + "\u00D7";
+                    isModulus = false;
+                }
             } else if (operator.equals(Operator.DIVIDE)) {
                 modifiedValue = currentValue.replaceAll("[\u002B|\u2212|\u00D7]$", "\u00F7").replaceAll("\\)$", ")\u00F7");
+                if (isModulus) {
+                    modifiedValue = modifiedValue + "\u00F7";
+                    isModulus = false;
+                }
             }
 
             secondaryDisplay.setText(modifiedValue);
@@ -464,6 +562,16 @@ public class HomeController {
                 case "\u00F7":
                     result = result / lastValue;
             }
+        }
+    }
+
+    private double calculatePercentage(double value) {
+        if (lastOperation.equals(Operator.MULTIPLY.toString()) || lastOperation.equals(Operator.DIVIDE.toString())) {
+            return (value / 100);
+        } else if (lastOperation.equals(Operator.ADD.toString()) || lastOperation.equals(Operator.SUBTRACT.toString())){
+            return ((result / 100) * value);
+        } else {
+            return 0.0;
         }
     }
 
@@ -575,7 +683,7 @@ public class HomeController {
                 fireButton(three);
             } else if (keyCode.equals(KeyCode.DIGIT4) || keyCode.equals(KeyCode.NUMPAD4)) {
                 fireButton(four);
-            } else if (keyCode.equals(KeyCode.DIGIT5) || keyCode.equals(KeyCode.NUMPAD5)) {
+            } else if ((!event.isShiftDown() && keyCode.equals(KeyCode.DIGIT5)) || keyCode.equals(KeyCode.NUMPAD5)) {
                 fireButton(five);
             } else if (keyCode.equals(KeyCode.DIGIT6) || keyCode.equals(KeyCode.NUMPAD6)) {
                 fireButton(six);
@@ -595,6 +703,8 @@ public class HomeController {
                 fireButton(multiply);
             } else if (keyCode.equals(KeyCode.DIVIDE) || keyCode.equals(KeyCode.SLASH)) {
                 fireButton(divide);
+            } else if ((event.isShiftDown() && keyCode.equals(KeyCode.DIGIT5))) {
+                fireButton(modulus);
             } else if (keyCode.equals(KeyCode.EQUALS) || keyCode.equals(KeyCode.ENTER)) {
                 fireButton(equals);
             } else if (keyCode.equals(KeyCode.BACK_SPACE)) {
