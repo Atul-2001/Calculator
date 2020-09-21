@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -28,7 +29,7 @@ public class Main extends Application {
             stage.setTitle("Calculator");
             stage.setMinWidth(320.0);
             stage.setMinHeight(480.0);
-//            stage.getIcons().add(new Image(getClass().getResource("/icons/logo.png").toString()));
+            stage.getIcons().add(new Image(getClass().getResource("/icons/logo.png").toString()));
             if (System.getProperty("os.name").startsWith("Windows")) {
                 isWindows = true;
             }
