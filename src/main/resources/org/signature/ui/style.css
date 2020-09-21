@@ -1,0 +1,17 @@
+.list-cell{
+    -fx-background-color:TRANSPARENT;
+    -fx-alignment: center-right;
+    -fx-text-alignment: right;
+}
+
+.list-view .list-cell:filled:hover {
+    -fx-background-color: WHITE;
+}
+.list-view .list-cell:empty:hover {
+    -fx-background-color: TRANSPARENT;
+}
+
+.list-view .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-padding: -7;
+}

@@ -14,9 +14,33 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="base" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="420.0" minWidth="280.0" prefHeight="524.0" prefWidth="408.0" style="-fx-background-color: rgba(220,220,220,0.5);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.signature.ui.HomeController">
+<BorderPane fx:id="base" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="420.0" minWidth="280.0" prefHeight="524.0" prefWidth="408.0" style="-fx-background-color: rgba(220,220,220,0.5);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.signature.ui.HomeController">
     <center>
         <VBox prefHeight="484.0" prefWidth="408.0" spacing="1.0" style="-fx-background-color: TRANSPARENT;" BorderPane.alignment="CENTER">
+           <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="400.0" spacing="20.0">
+               <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT">
+                   <HBox.margin>
+                       <Insets left="10.0" />
+                   </HBox.margin>
+               </JFXHamburger>
+               <Label text="Standard">
+                   <font>
+                       <Font name="Roboto Bold" size="26.0" />
+                   </font>
+               </Label>
+               <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                   <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#handleSidePane">
+                       <graphic>
+                           <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                               <Image url="@../../../icons/ic_history_black_24dp.png" />
+                           </ImageView>
+                       </graphic>
+                       <HBox.margin>
+                           <Insets right="2.0" top="2.0" />
+                       </HBox.margin>
+                   </JFXButton>
+               </HBox>
+           </HBox>
             <VBox maxHeight="160.0" prefHeight="118.0" prefWidth="400.0">
                 <VBox.margin>
                     <Insets left="4.0" right="4.0" />
@@ -215,18 +239,4 @@
             </GridPane>
         </VBox>
     </center>
-    <top>
-        <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="400.0" spacing="20.0" BorderPane.alignment="CENTER">
-            <JFXHamburger fx:id="hamburger" alignment="CENTER_LEFT">
-                <HBox.margin>
-                    <Insets left="10.0" />
-                </HBox.margin>
-            </JFXHamburger>
-            <Label text="Standard">
-                <font>
-                    <Font name="Roboto Bold" size="26.0" />
-                </font>
-            </Label>
-        </HBox>
-    </top>
 </BorderPane>

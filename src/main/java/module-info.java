@@ -4,5 +4,6 @@ module org.signature {
     requires com.jfoenix;
 
     opens org.signature.ui to javafx.fxml;
+    exports org.signature.model;
     exports org.signature.ui;
 }

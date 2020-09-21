@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="400.0" minWidth="-Infinity" prefWidth="320.0" spacing="2.0" style="-fx-background-color: rgba(220,220,220,0.5);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.signature.ui.HistoryController">
+   <Label text="History" underline="true">
+      <font>
+         <Font name="Roboto Bold" size="30.0" />
+      </font>
+      <VBox.margin>
+         <Insets left="6.0" top="4.0" />
+      </VBox.margin>
+   </Label>
+   <JFXListView fx:id="history" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="320.0" style="-fx-background-color: TRANSPARENT;" stylesheets="@style.css" verticalGap="10.0" VBox.vgrow="ALWAYS" />
+</VBox>
