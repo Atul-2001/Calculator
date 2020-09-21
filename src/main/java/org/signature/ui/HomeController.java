@@ -787,7 +787,7 @@ public class HomeController {
                 fireButton(decimal);
             } else if ((event.isShiftDown() && keyCode.equals(KeyCode.EQUALS)) || keyCode.equals(KeyCode.PLUS) || keyCode.equals(KeyCode.ADD)) {
                 fireButton(add);
-            } else if (keyCode.equals(KeyCode.MINUS)) {
+            } else if (keyCode.equals(KeyCode.MINUS) || keyCode.equals(KeyCode.SUBTRACT)) {
                 fireButton(subtract);
             } else if ((event.isShiftDown() && keyCode.equals(KeyCode.DIGIT8)) || keyCode.equals(KeyCode.MULTIPLY)) {
                 fireButton(multiply);
